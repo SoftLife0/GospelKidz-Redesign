@@ -71,6 +71,34 @@ li {
   opacity: 1;
 }
 
+
+.whatsapp-widget {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999; /* Ensure it's above other content */
+}
+
+/* Style for the WhatsApp icon within the widget */
+.whatsapp-widget img {
+  width: 50px; /* Adjust size as needed */
+  height: auto;
+}
+
+/* Style for the WhatsApp icon on hover (optional) */
+.whatsapp-widget img:hover {
+  opacity: 0.8;
+  /* Add any other hover effects as needed */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .whatsapp-widget {
+    right: 10px; /* Adjust position for smaller screens */
+    bottom: 10px;
+  }
+}
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
