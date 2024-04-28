@@ -1259,7 +1259,7 @@ section {
 .portfolio-details {
   padding-top: 25px;
   font-weight: 500;
-  font-family: 'SF UI Display Thick';
+  font-family: 'SF UI Display Bold';
 }
 
 .portfolio-details .portfolio-details-slider img {
@@ -1300,10 +1300,12 @@ section {
   list-style: none;
   padding: 0;
   font-size: 15px;
+  font-family: "SF UI Display Bold", sans-serif;
 }
 
 .portfolio-details .portfolio-info ul li+li {
   margin-top: 10px;
+  font-family: "SF UI Display Bold", sans-serif;
 }
 
 .portfolio-details .portfolio-description {
@@ -1311,7 +1313,7 @@ section {
 }
 
 .portfolio-details .portfolio-description h3 {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
   margin-bottom: 20px;
 }
