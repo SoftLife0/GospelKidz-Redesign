@@ -510,13 +510,13 @@ li {
   /* font-size: 24px; */
 }
 
-#hero .btn-get-started {
+.btn-get-started {
   font-family: 'SF UI Display Bold', sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 17px;
   display: inline-block;
-  padding: 13px 35px;
+  padding: 12px 30px;
   border-radius: 5px;
   transition: 0.5s;
   color: #fff;
@@ -524,7 +524,7 @@ li {
   border: 2px solid #ff4a17;
 }
 
-#hero .btn-get-started:hover {
+.btn-get-started:hover {
   border-color: #fff;
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
