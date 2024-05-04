@@ -117,22 +117,22 @@
                 <h3> <b>Volunteers Registration Form</b></h3>
             </div>
 
-            <form>
+            <form id="registration-form">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-                    <input type="name" class="form-control" id="exampleFormControlInput1" placeholder="Full Name">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Full Name">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Telephone Number</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Telephone number">
+                    <label for="phone" class="form-label">Telephone Number</label>
+                    <input type="text" class="form-control" id="phone" placeholder="Telephone number">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Which location will you be volunteering for?</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <label for="location" class="form-label">Which location will you be volunteering for?</label>
+                    <select id="location" class="form-select" aria-label="Default select example">
                         <option selected disabled>Select an option.....</option>
                         <option value="1">Ashaiman</option>
                         <option value="2">Anyinabrem</option>
@@ -148,13 +148,13 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Profession</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession">
+                    <label for="profession" class="form-label">Profession</label>
+                    <input type="text" class="form-control" id="profession" placeholder="Profession">
                 </div>
                 
 
                 <div style="text-align: center;">
-                    <button class="btn-get-started">Submit </button>
+                    <button  class="btn-get-started">Submit </button>
                 </div>
             </form>
         </div>
@@ -258,35 +258,64 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+ 
   <script>
-    function fetchImages() {
-
-      numberOfImages = 70
-      var portfolio = document.getElementsByClassName("adjacentPortfolio")[0]
-
-      for (let index = 1; index < numberOfImages; index++) {
-        console.log(index)
-        let imageCard = `<div class="col-lg-4 col-md-6 portfolio-item">
-            <img src="assets/img/bjws/bjws${index}.jpg" class="img-fluid" alt="">
-          </div>`
-        let workingImageCard = 
-          ` <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/bjws/bjws${index}.jpg" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              <h4>Picture ${index}</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>`
-        portfolio.insertAdjacentHTML("beforebegin", imageCard)
-      }
-      
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+  
+      var name = document.getElementById('name').value;
+      var phone = document.getElementById('phone').value;
+      var location = document.getElementById('location').value;
+      var email = document.getElementById('email').value;
+      var profession = document.getElementById('profession').value;
+  
+      var templateBody = {
+        "name": name,
+        "date": new Date().toISOString(), // Assuming you want to include the current date
+        "number": phone,
+        "email": email,
+        "location": location,
+        "profession": profession
+      };
+  
+      // Send form data directly to API URL
+      fetch('https://connect.prestoghana.com/foomail', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          templateId: "booking",
+          title: "Annual Medical Screening",
+          receivers: ["onikosiadewale18@gmail.com"], // Add receivers here
+          subject: "New Medical Screening Booking",
+          templateBody: templateBody
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          // If the response is successful, do something
+          console.log('Form data sent successfully');
+          // You can redirect to another page or show a success message here
+        } else {
+          // If there is an error in the response, handle it
+          console.error('Error sending form data');
+          // You can show an error message to the user or retry sending the form data
+        }
+      })
+      .catch(error => {
+        console.error('Error sending form data:', error);
+        // Handle any network errors here
+      });
     }
   
+    // Add an event listener to the form
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('registration-form');
+      form.addEventListener('submit', submitForm);
+    });
   </script>
-
-
 
 </body>
 
