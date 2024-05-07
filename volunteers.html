@@ -252,61 +252,68 @@
 
   <script>
     function submitForm() {
+        // Display loading screen
+        document.getElementById('loading').style.display = 'flex';
+
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
         var email = document.getElementById('email').value;
         var location = document.getElementById('location').value;
         var profession = document.getElementById('profession').value;
-    
-        var templateBody = 
-        {
-          "description": "New Volunteers Registration Slot. Checkout the details below",
-          "header": "New Volunteers Registration ",
-          "image": "https://gospelkidz.org/assets/img/logo.jpeg",
-          "type": "short",
-          "data": {
-            "Full Name": name,
-            "Telephone Number": phone,
-            "Email Address": email,
-            "Location": location,
-            "Profession": profession   
-          }
+
+        var templateBody = {
+            "description": "New Volunteers Registration Slot. Checkout the details below",
+            "header": "New Volunteers Registration ",
+            "image": "https://gospelkidz.org/assets/img/logo.jpeg",
+            "type": "short",
+            "data": {
+                "Full Name": name,
+                "Telephone Number": phone,
+                "Email Address": email,
+                "Location": location,
+                "Profession": profession   
+            }
         };
-        console.log(templateBody)
+
         sendConnectEmail('dynamic', 'New Volunteer Registration', 'onikosiadewale18@gmail.com', 'Volunteer Registration', templateBody);
     }
-    
+
     function sendConnectEmail(templateId, title, receivers, subject, templateBody) {
-        console.log('Attempting to send an email');
-        var body = {
-            templateId: "dynamic",
-            title: "New Volunteer Registration",
-            receivers: ['onikosiadewale18@gmail.com'],
-            subject: "Volunteer Registration",
-            templateBody: templateBody
-        };
-    
-        fetch('https://connect.prestoghana.com/foomail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to send email');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Email sent successfully:', data);
-        })
-        .catch(error => {
-            console.error('Error sending email:', error);
-        });
-    }
-    </script>
+    var body = {
+        templateId: "dynamic",
+        title: "New Volunteer Registration",
+        receivers: ['onikosiadewale18@gmail.com'],
+        subject: "Volunteer Registration",
+        templateBody: templateBody
+    };
+
+    fetch('https://connect.prestoghana.com/foomail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to send email');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('Email sent successfully:', data);
+        // Redirect to success page after hiding loading screen
+        document.getElementById('loading').style.display = 'none';
+        window.location.href = 'success.html'; // Replace 'success.html' with your actual success page URL
+    })
+    .catch(error => {
+        console.error('Error sending email:', error);
+        // Hide loading screen in case of error
+        document.getElementById('loading').style.display = 'none';
+        // Handle error scenario as per your requirement
+    });
+}
+</script>
 
 </body>
 
