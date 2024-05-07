@@ -135,10 +135,10 @@
                     <input type="text" class="form-control" id="location" placeholder="Location/Address">
                 </div>
 
-                <div style="text-align: center;">
-                    <button class="btn-get-started">Submit </button>
-                </div>
-            </form>
+              </form>
+              <div style="text-align: center;">
+                  <button class="btn-get-started">Submit </button>
+              </div>
         </div>
     </section>
     
@@ -241,34 +241,64 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    function fetchImages() {
+    function submitForm() {
+        // Display loading screen
+        document.getElementById('loading').style.display = 'flex';
 
-      numberOfImages = 70
-      var portfolio = document.getElementsByClassName("adjacentPortfolio")[0]
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('phone').value;
+        var email = document.getElementById('email').value;
+        var location = document.getElementById('location').value;
 
-      for (let index = 1; index < numberOfImages; index++) {
-        console.log(index)
-        let imageCard = `<div class="col-lg-4 col-md-6 portfolio-item">
-            <img src="assets/img/bjws/bjws${index}.jpg" class="img-fluid" alt="">
-          </div>`
-        let workingImageCard = 
-          ` <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/bjws/bjws${index}.jpg" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              <h4>Picture ${index}</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>`
-        portfolio.insertAdjacentHTML("beforebegin", imageCard)
-      }
-      
+        var templateBody = {
+            "description": "New Partnership Registration Slot. Checkout the details below",
+            "header": "New Partnership Registration ",
+            "image": "https://gospelkidz.org/assets/img/logo.jpeg",
+            "type": "short",
+            "data": {
+                "Full Name": name,
+                "Telephone Number": phone,
+                "Email Address": email,
+                "Location": location
+            }
+        };
+
+        sendConnectEmail('dynamic', 'New Partnership Registration', 'onikosiadewale18@gmail.com', 'Partnership Registration', templateBody);
     }
-  
-  </script>
 
+    function sendConnectEmail(templateId, title, receivers, subject, templateBody) {
+    var body = {
+        templateId: "dynamic",
+        title: "New Partnership Registration",
+        receivers: ['onikosiadewale18@gmail.com'],
+        subject: "Partnership Registration Form",
+        templateBody: templateBody
+    };
 
+    fetch('https://connect.prestoghana.com/foomail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to send email');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('Email sent successfully:', data);
+        document.getElementById('loading').style.display = 'none';
+        window.location.href = 'success.html'; 
+    })
+    .catch(error => {
+        console.error('Error sending email:', error);
+        document.getElementById('loading').style.display = 'none';
+    });
+}
+</script>
 
 </body>
 

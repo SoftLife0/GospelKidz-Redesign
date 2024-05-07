@@ -302,15 +302,12 @@
     })
     .then(data => {
         console.log('Email sent successfully:', data);
-        // Redirect to success page after hiding loading screen
         document.getElementById('loading').style.display = 'none';
-        window.location.href = 'success.html'; // Replace 'success.html' with your actual success page URL
+        window.location.href = 'success.html'; 
     })
     .catch(error => {
         console.error('Error sending email:', error);
-        // Hide loading screen in case of error
         document.getElementById('loading').style.display = 'none';
-        // Handle error scenario as per your requirement
     });
 }
 </script>
