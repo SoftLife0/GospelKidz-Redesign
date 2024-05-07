@@ -191,7 +191,6 @@
             <p>A Heart to see ❤️</p>
             <p>Through spreading faith, love, and essential support, we empower communities. Our mission is to touch hearts, nurture souls, and impact futures, connecting compassion with action, one meaningful endeavor at a time.</p>
             
-
           </div>
 
         </div>
@@ -288,6 +287,8 @@
     .catch(error => {
         console.error('Error sending email:', error);
         document.getElementById('loading').style.display = 'none';
+        alert("There was an error processing your request. Our administrator will reach out to you shortly.");
+
     });
 }
 </script>
