@@ -524,12 +524,6 @@ li {
   border: 2px solid #ff4a17;
 }
 
-.btn-get-started:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
 #hero .btn-watch-video {
   font-size: 16px;
   display: inline-block;
