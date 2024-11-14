@@ -144,10 +144,17 @@
                     <input type="email" class="form-control" id="email" placeholder="name@example.com">
                 </div>
                 <div class="mb-3">
-                    <label for="location" class="form-label">Location/Address</label>
-                    <input type="text" class="form-control" id="location" placeholder="Location/Address">
+                  <label for="location" class="form-label">Location/Address</label>
+                  <input type="text" class="form-control" id="location" placeholder="Location/Address">
                 </div>
-
+                <div class="mb-3">
+                  <label for="donation">Would you like to make this a recurring donation?</label>
+                  <select id="donation" class="form-select">
+                    <option selected disabled>Select an option.....</option>
+                    <option value="Yes, make this donation monthly">Yes, make this donation monthly</option>
+                    <option value="No, this is a one-time gift">No, this is a one-time gift</option>
+                  </select>
+                </div>
               </form>
               <div style="text-align: center;">
                   <button onclick="submitForm()" class="btn-get-started">Submit </button>
@@ -240,6 +247,7 @@
         var phone = document.getElementById('phone').value;
         var email = document.getElementById('email').value;
         var location = document.getElementById('location').value;
+        var donation = document.getElementById('donation').value;
 
         var templateBody = {
             "description": "New Partnership Registration Slot. Checkout the details below",
@@ -250,7 +258,8 @@
                 "Full Name": name,
                 "Telephone Number": phone,
                 "Email Address": email,
-                "Location": location
+                "Location": location,
+                "Donation": donation,
             }
         };
 
