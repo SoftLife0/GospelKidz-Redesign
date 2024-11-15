@@ -158,7 +158,7 @@
                 </div>
               </form>
               <div style="text-align: center;">
-                  <button onclick="submitForm()" class="btn-get-started">Submit </button>
+                <button onclick="submitForm()" class="btn-get-started" style="width: 50%;">Submit </button>
               </div>
         </div>
     </section>
@@ -251,17 +251,16 @@
         var donation = document.getElementById('donation').value;
 
         var templateBody = {
-            "description": "New Partnership Registration Slot. Checkout the details below",
-            "header": "New Partnership Registration ",
-            "image": "https://gospelkidz.org/assets/img/logo.jpeg",
-            // "type": "short",
-            "Full Name": name,
-            "Telephone Number": phone,
-            "Email Address": email,
-            "Location": location,
-            "Donation": donation,
-            "data": {
-                
+          "description": "New Partnership Registration Slot. Checkout the details below",
+          "header": "New Partnership Registration",
+          "image": "https://gospelkidz.org/assets/img/logo.jpeg",
+          "type": "short",  // This is necessary to make your template use the table layout
+          "data": {
+              "Full Name": name,
+              "Telephone Number": phone,
+              "Email Address": email,
+              "Location": location,
+              "Donation": donation
             }
         };
 
@@ -270,13 +269,13 @@
 
     function sendConnectEmail(templateId, title, receivers, subject, templateBody) {
     var body = {
-        templateId: "dynamic",
-        title: "New Partnership Registration",
-        receivers: 'onikosiadewale18@gmail.com',
-        subject: "Partnership Registration Form",
-        templateBody: templateBody
+        templateId: templateId,
+        title: title,
+        receivers: [receivers], // Wrap receivers in an array
+        subject: subject,
+        body: templateBody  // Changed this to 'body' to match the Flask function
     };
-// 'gospelkidz23@yahoo.com'
+
     fetch('https://connect.prestoghana.com/foomail', {
         method: 'POST',
         headers: {
@@ -299,7 +298,6 @@
         console.error('Error sending email:', error);
         document.getElementById('loading').style.display = 'none';
         alert("There was an error processing your request. Our administrator will reach out to you shortly.");
-
     });
 }
 </script>
