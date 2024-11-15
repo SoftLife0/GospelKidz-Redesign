@@ -127,7 +127,8 @@
     <section>
         <div class="container">
             <div style="padding: 10px 0;">
-                <h3> <b>Partnership Registration Form</b></h3>
+                <h4> <b>Become a Partner Today</b></h4>
+                <p>Receive quarterly updates on our impact. Your donation helps us continue transforming the lives of children in Ghana. </p>
             </div>
 
             <form>
@@ -253,13 +254,14 @@
             "description": "New Partnership Registration Slot. Checkout the details below",
             "header": "New Partnership Registration ",
             "image": "https://gospelkidz.org/assets/img/logo.jpeg",
-            "type": "short",
+            // "type": "short",
+            "Full Name": name,
+            "Telephone Number": phone,
+            "Email Address": email,
+            "Location": location,
+            "Donation": donation,
             "data": {
-                "Full Name": name,
-                "Telephone Number": phone,
-                "Email Address": email,
-                "Location": location,
-                "Donation": donation,
+                
             }
         };
 
@@ -270,11 +272,11 @@
     var body = {
         templateId: "dynamic",
         title: "New Partnership Registration",
-        receivers: ['onikosiadewale18@gmail.com', 'gospelkidz23@yahoo.com'],
+        receivers: 'onikosiadewale18@gmail.com',
         subject: "Partnership Registration Form",
         templateBody: templateBody
     };
-
+// 'gospelkidz23@yahoo.com'
     fetch('https://connect.prestoghana.com/foomail', {
         method: 'POST',
         headers: {

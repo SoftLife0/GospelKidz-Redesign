@@ -30,7 +30,7 @@ h6 {
   font-family: 'SF UI Display Bold', sans-serif;
 }
 p {
-  font-size: 20px;
+  font-size: 18px;
 }
 li {
   font-size: 18px;
@@ -514,6 +514,7 @@ li {
   font-family: 'SF UI Display Bold', sans-serif;
   text-transform: uppercase;
   font-weight: 700;
+  width: 50%;
   font-size: 17px;
   display: inline-block;
   padding: 12px 30px;
