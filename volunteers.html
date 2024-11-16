@@ -73,16 +73,16 @@
       <nav id="navbar" class="navbar ">
         <ul>
           <li><a class="nav-link scrollto active" href="index.html">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
           <li class="dropdown"><a href="#"><span>Projects</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#project">Upcoming</a></li>
-              <li><a href="#completed">Completed</a></li>
+              <li><a href="index.html#completed">Completed</a></li>
               
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#services">Statements</a></li>
-          <li><a class="nav-link scrollto" href="event.html">Story</a></li>
+          <li><a class="nav-link scrollto" href="index.html#services">Statements</a></li>
+          <li><a class="nav-link scrollto" href="event.html">Events</a></li>
           <li><a class="nav-link scrollto " href="gallery.html">Gallery</a></li>
           <li><a class="nav-link scrollto" href="testimonial.html">Testimonials</a></li>
           <li><a class="nav-link scrollto" href="#footer">Contact</a></li>
@@ -167,8 +167,9 @@
                 
 
               </form>
+              <br>
               <div style="text-align: center;">
-                  <button onclick="submitForm()" class="btn-get-started">Submit </button>
+                  <button onclick="submitForm()" class="btn-get-started" style="width: 50%;">Submit </button>
               </div>
         </div>
     </section>
@@ -252,64 +253,65 @@
 
   <script>
     function submitForm() {
-        // Display loading screen
-        document.getElementById('loading').style.display = 'flex';
+      // Display loading screen
+      document.getElementById('loading').style.display = 'flex';
 
-        var name = document.getElementById('name').value;
-        var phone = document.getElementById('phone').value;
-        var email = document.getElementById('email').value;
-        var location = document.getElementById('location').value;
-        var profession = document.getElementById('profession').value;
+      var name = document.getElementById('name').value;
+      var phone = document.getElementById('phone').value;
+      var email = document.getElementById('email').value;
+      var location = document.getElementById('location').value;
+      var profession = document.getElementById('profession').value;
 
-        var templateBody = {
-            "description": "New Volunteers Registration Slot. Checkout the details below",
-            "header": "New Volunteers Registration ",
-            "image": "https://gospelkidz.org/assets/img/logo.jpeg",
-            "type": "short",
-            "data": {
-                "Full Name": name,
-                "Telephone Number": phone,
-                "Email Address": email,
-                "Location": location,
-                "Profession": profession   
-            }
-        };
+      var body = {
+          templateId: "dynamic",
+          title: "Volunteer Registration",
+          subject: "New Volunteer Registration Form",
+          receivers: ["onikosiadewale18@gmail.com", "gospelkidz23@yahoo.com"], // Ensure this is an array
+          description: "New Volunteer Registration Slot. Checkout the details below",
+          header: "New Volunteer Registration",
+          image: "https://gospelkidz.org/assets/img/logo.jpeg",
+          data: {
+              "Full Name": name,
+              "Telephone Number": phone,
+              "Email Address": email,
+              "Location": location,
+              "Profession": profession   
+          }
+      };
 
-        sendConnectEmail('dynamic', 'New Volunteer Registration', 'onikosiadewale18@gmail.com', 'Volunteer Registration', templateBody);
+      // Send the POST request to the server
+      fetch('https://connect.prestoghana.com/foomail', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to send email');
+          }
+          return response.json();
+      })
+      .then(data => {
+          console.log('Email sent successfully:', data);
+
+          // Hide loading screen
+          document.getElementById('loading').style.display = 'none';
+
+          // Redirect to success page
+          window.location.href = 'success.html';
+      })
+      .catch(error => {
+          console.error('Error sending email:', error);
+
+          // Hide loading screen
+          document.getElementById('loading').style.display = 'none';
+
+          // Show error message to the user
+          alert("There was an error processing your request. Our administrator will reach out to you shortly.");
+      });
     }
-
-    function sendConnectEmail(templateId, title, receivers, subject, templateBody) {
-    var body = {
-        templateId: "dynamic",
-        title: "New Volunteer Registration",
-        receivers: ['onikosiadewale18@gmail.com', 'gospelkidz23@yahoo.com'],
-        subject: "Volunteer Registration",
-        templateBody: templateBody
-    };
-
-    fetch('https://connect.prestoghana.com/foomail', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to send email');
-        }
-        return response.text();
-    })
-    .then(data => {
-        console.log('Email sent successfully:', data);
-        document.getElementById('loading').style.display = 'none';
-        window.location.href = 'success.html'; 
-    })
-    .catch(error => {
-        console.error('Error sending email:', error);
-        document.getElementById('loading').style.display = 'none';
-    });
-}
 </script>
 
 </body>
