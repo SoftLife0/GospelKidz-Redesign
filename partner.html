@@ -244,63 +244,67 @@
         // Display loading screen
         document.getElementById('loading').style.display = 'flex';
 
+        // Get form values
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
         var email = document.getElementById('email').value;
         var location = document.getElementById('location').value;
         var donation = document.getElementById('donation').value;
 
-        var templateBody = {
-          "description": "New Partnership Registration Slot. Checkout the details below",
-          "header": "New Partnership Registration",
-          "image": "https://gospelkidz.org/assets/img/logo.jpeg",
-          "type": "short",  // This is necessary to make your template use the table layout
-          "data": {
-              "Full Name": name,
-              "Telephone Number": phone,
-              "Email Address": email,
-              "Location": location,
-              "Donation": donation
+        // Prepare the email payload
+        var body = {
+            templateId: "dynamic",
+            title: "Partnership Registration",
+            subject: "New Partnership Registration Form",
+            receivers: ["onikosiadewale18@gmail.com"], // Ensure this is an array
+            description: "New Partnership Registration Slot. Checkout the details below",
+            header: "New Partnership Registration",
+            image: "https://gospelkidz.org/assets/img/logo.jpeg",
+            data: {
+                "Full Name": name,
+                "Telephone Number": phone,
+                "Email Address": email,
+                "Location": location,
+                "Donation": donation
             }
         };
 
-        sendConnectEmail('dynamic', 'New Partnership Registration', 'onikosiadewale18@gmail.com', 'Partnership Registration', templateBody);
+        // Send the POST request to the server
+        fetch('http://192.168.1.169:4000/foomail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to send email');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Email sent successfully:', data);
+
+            // Hide loading screen
+            document.getElementById('loading').style.display = 'none';
+
+            // Redirect to success page
+            window.location.href = 'success.html';
+        })
+        .catch(error => {
+            console.error('Error sending email:', error);
+
+            // Hide loading screen
+            document.getElementById('loading').style.display = 'none';
+
+            // Show error message to the user
+            alert("There was an error processing your request. Our administrator will reach out to you shortly.");
+        });
     }
-
-    function sendConnectEmail(templateId, title, receivers, subject, templateBody) {
-    var body = {
-        templateId: templateId,
-        title: title,
-        receivers: [receivers], // Wrap receivers in an array
-        subject: subject,
-        body: templateBody  // Changed this to 'body' to match the Flask function
-    };
-
-    fetch('https://connect.prestoghana.com/foomail', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to send email');
-        }
-        return response.text();
-    })
-    .then(data => {
-        console.log('Email sent successfully:', data);
-        document.getElementById('loading').style.display = 'none';
-        window.location.href = 'success.html'; 
-    })
-    .catch(error => {
-        console.error('Error sending email:', error);
-        document.getElementById('loading').style.display = 'none';
-        alert("There was an error processing your request. Our administrator will reach out to you shortly.");
-    });
-}
 </script>
+
+
 
 </body>
 
